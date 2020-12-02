@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+    <TargetFramework>net5.0</TargetFramework>
+    <Product>AdventOfCode2020</Product>
+    <Company>Soodo</Company>
+    <Copyright>Copyright © Soodo 2020</Copyright>
+    <LangVersion>latest</LangVersion>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+</Project>
