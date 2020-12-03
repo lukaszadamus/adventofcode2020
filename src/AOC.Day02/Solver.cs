@@ -6,15 +6,13 @@ namespace AOC.Day02
     public partial class Solver
     {
         private readonly ILogger _logger = Log.ForContext<Solver>();
-        
-        
 
         public int RunA(string[] lines)
         {
             var _parser = new LineParser();
             var validNo = 0;
 
-            using var _ = new DiagnosticHelper("Day02.A");            
+            using var _ = new DiagnosticHelper("Day02.A");
             foreach (var line in lines)
             {
                 var (policy, password) = _parser.Parse(line);
@@ -34,7 +32,7 @@ namespace AOC.Day02
             var _parser = new TobogganLineParser();
             int validNo = 0;
 
-            using var _ = new DiagnosticHelper("Day02.B");            
+            using var _ = new DiagnosticHelper("Day02.B");
             foreach (var line in lines)
             {
                 var (policy, password) = _parser.Parse(line);
