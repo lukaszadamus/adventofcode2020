@@ -12,8 +12,8 @@ namespace AOC.Tests
             _output = output ?? throw new System.ArgumentNullException(nameof(output));
             
             Log.Logger = new LoggerConfiguration()
-                        .MinimumLevel.Debug()
-                        .WriteTo.TestOutput(output, Serilog.Events.LogEventLevel.Debug)
+                        .MinimumLevel.Verbose()
+                        .WriteTo.TestOutput(output, Serilog.Events.LogEventLevel.Verbose)
                         .CreateLogger();
         }        
     }

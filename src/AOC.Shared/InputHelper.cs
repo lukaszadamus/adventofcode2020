@@ -20,5 +20,26 @@ namespace AOC.Shared
         {
             return File.ReadAllLinesAsync(path);
         }
+
+        public static Task<string> Text(string path)
+        {
+            return File.ReadAllTextAsync(path);
+        }
+
+        public async static Task<string[]> ToLines(string input)
+        {
+            var lines = new List<string>();
+            using (var reader = new StringReader(input))
+            {
+                string line;
+
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    lines.Add(line);
+                }
+            }
+
+            return lines.ToArray();
+        }
     }
 }
