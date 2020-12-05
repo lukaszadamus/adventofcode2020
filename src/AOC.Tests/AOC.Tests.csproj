@@ -11,6 +11,7 @@
     <ProjectReference Include="..\AOC.Day02\AOC.Day02.csproj" />
     <ProjectReference Include="..\AOC.Day03\AOC.Day03.csproj" />
     <ProjectReference Include="..\AOC.Day04\AOC.Day04.csproj" />
+    <ProjectReference Include="..\AOC.Day05\AOC.Day05.csproj" />
   </ItemGroup> 
 
   <ItemGroup>
