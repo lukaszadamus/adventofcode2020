@@ -19,4 +19,3 @@ var b = input
 
 Console.WriteLine($"A:{a}");
 Console.WriteLine($"B:{b}");
-
