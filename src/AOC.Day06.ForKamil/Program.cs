@@ -2,7 +2,9 @@
 using System.IO;
 using System.Linq;
 
-var input = File.ReadAllText("input.txt").Split($"{Environment.NewLine}{Environment.NewLine}");
+var input = File
+    .ReadAllText("input.txt")
+    .Split($"{Environment.NewLine}{Environment.NewLine}");
 
 var a = input
     .Sum(x => x.Replace(Environment.NewLine, "")
