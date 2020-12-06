@@ -33,33 +33,28 @@ namespace AOC.Day04
         {
             var passport = new Passport();
             var validNo = 0;
-            var scannedNo = 0;
-            bool isValid;
+            var scannedNo = 0;            
             using var _ = new DiagnosticHelper(label);
-            foreach (var line in lines)
+
+            var groups = InputHelper.GroupLines(lines, (x) => string.IsNullOrWhiteSpace(x));
+
+            foreach(var g in groups)
             {
-                if (Scanner.ScanAndUpdate(line, passport))
+                foreach(var gl in g)
                 {
-                    isValid = validator(passport);
-                    if (isValid)
-                    {
-                        validNo++;
-                    }
-                    scannedNo++;
-                    _logger.Verbose("Passport #{scannedNo} {passport} valid:{isValid}", scannedNo, passport, isValid);
-
-                    passport = new Passport();
+                    Scanner.ScanAndUpdate(gl, passport);
                 }
-            }
+                
+                var isValid = validator(passport);
+                if (isValid)
+                {
+                    validNo++;
+                }
+                scannedNo++;
+                _logger.Verbose("Passport #{scannedNo} {passport} valid:{isValid}", scannedNo, passport, isValid);
 
-            //no new line at the end of the file
-            isValid = validator(passport);
-            if (isValid)
-            {
-                validNo++;
-            }
-            scannedNo++;
-            _logger.Verbose("Passport #{scannedNo} {passport} valid:{isValid}", scannedNo, passport, isValid);
+                passport = new Passport();
+            }            
 
             _logger.Information("Number of valid passports: {validNo} scanned: {scannedNo}", validNo, scannedNo);
 
