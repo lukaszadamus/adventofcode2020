@@ -74,9 +74,8 @@ int SolveB(Dictionary<string, Content[]> input, string colorToCheck)
         }
         else
         {
-            var content = input[currentColor];
-            var localCount = f * content.Sum(x => x.Quantity);
-            count += localCount;
+            var content = input[currentColor];            
+            count += f * content.Sum(x => x.Quantity);
 
             foreach (var next in content)
             {
