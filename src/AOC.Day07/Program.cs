@@ -2,63 +2,42 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AOC.Shared;
 
-Configure.Logging();
-Dictionary<string, Content[]> input;
+var rules = File.ReadAllLines("input.txt").GetRules();
 
-using (var _ = new DiagnosticHelper("Read data"))
+Console.WriteLine($"A: {SolveA("shiny gold", rules)}");
+Console.WriteLine($"B: {SolveB("shiny gold", rules)}");
+
+int SolveA(string colorToCheck, Dictionary<string, Content[]> rules)
+    => rules.Where(x => Find(x.Key, colorToCheck, rules)).Count();
+
+int SolveB(string colorToCheck, Dictionary<string, Content[]> rules)
+    => Count(colorToCheck, rules);
+
+bool Find(string color, string colorToCheck, Dictionary<string, Content[]> rules)
 {
-    input = File.ReadAllLines("input.txt").GetRules();
-}
+    var queue = new Queue<string>();
+    queue.Enqueue(color);
 
-var a = SolveA(input, "shiny gold");
-var b = SolveB(input, "shiny gold");
-
-Console.WriteLine($"A:{a}");
-Console.WriteLine($"B:{b}");
-
-int SolveA(Dictionary<string, Content[]> input, string colorToCheck)
-{
-    using var _ = new DiagnosticHelper("Day07.A");
-    var count = 0;
-
-    foreach (var rule in input)
+    while (queue.Count > 0)
     {
-        var queue = new Queue<string>();
-        queue.Enqueue(rule.Key);
+        var colors = rules[queue.Dequeue()]
+            .Where(x => x.Color != "no other")
+            .Select(x => x.Color).ToList();
 
-        var found = false;
-        while (queue.Count > 0)
+        if (colors.Any(x => x == colorToCheck))
         {
-            found = false;
-
-            var current = queue.Dequeue();
-
-            var colors = input[current].Select(x => x.Color);
-
-            if (colors.Any(x => x == colorToCheck))
-            {
-                found = true;
-                queue.Clear();
-            }
-            else
-            {
-                foreach (var next in colors.Where(x => x != "no other"))
-                {
-                    queue.Enqueue(next);
-                }
-            }
+            return true;
         }
-        count += found ? 1 : 0;
+
+        colors.ForEach(x => queue.Enqueue(x));
     }
 
-    return count;
+    return false;
 }
 
-int SolveB(Dictionary<string, Content[]> input, string colorToCheck)
+int Count(string colorToCheck, Dictionary<string, Content[]> rules)
 {
-    using var _ = new DiagnosticHelper("Day07.B");
     var count = 0;
 
     var queue = new Queue<(string, int)>();
@@ -67,20 +46,16 @@ int SolveB(Dictionary<string, Content[]> input, string colorToCheck)
     while (queue.Count > 0)
     {
         var (currentColor, f) = queue.Dequeue();
-
         if (currentColor == "no other")
         {
             count += f * 1;
         }
         else
         {
-            var content = input[currentColor];            
+            var content = rules[currentColor].ToList();
             count += f * content.Sum(x => x.Quantity);
 
-            foreach (var next in content)
-            {
-                queue.Enqueue((next.Color, f * next.Quantity));
-            }
+            content.ForEach(x => queue.Enqueue((x.Color, f * x.Quantity)));
         }
     }
 
