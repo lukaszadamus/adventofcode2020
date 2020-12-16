@@ -54,29 +54,30 @@ int SolveA(int[] numbers, int round)
 
 int SolveB(int[] numbers, int round)
 {
-    using var _ = new DiagnosticHelper("SolveB");
     var numberRounds = numbers
         .Select((x, i) => new { n = x, i = i + 1 })
         .ToDictionary(x => x.n, x => new int[2] { x.i, x.i });
 
     var last = numbers.Last();
 
-    for (var r = numbers.Length + 1; r <= round; r++)
+    using (var _ = new DiagnosticHelper("SolveB"))
     {
-        var foo = numberRounds[last];
-        last = foo[0] - foo[1];
+        for (var r = numbers.Length + 1; r <= round; r++)
+        {
+            var foo = numberRounds[last];
+            last = foo[0] - foo[1];
 
-        if (numberRounds.ContainsKey(last))
-        {
-            var bar = numberRounds[last];
-            bar[1] = bar[0];
-            bar[0] = r;
-        }
-        else
-        {
-            numberRounds.Add(last, new int[2] { r, r });
+            if (numberRounds.ContainsKey(last))
+            {
+                var bar = numberRounds[last];
+                bar[1] = bar[0];
+                bar[0] = r;
+            }
+            else
+            {
+                numberRounds.Add(last, new int[2] { r, r });
+            }
         }
     }
-
     return last;
 }
