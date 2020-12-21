@@ -30,8 +30,8 @@ int SolveB(Input input)
     //8: 42 | 42 8 => (42)+
     //11: 42 31 | 42 11 31 (42)+(31)+
     //0: 8 11 => ((42){2,})(31)+
-
-    var regex = new Regex($"^({r42}){{2,}}({r31})+$", RegexOptions.Compiled);
+    
+    var regex = new Regex($"^(({r42})+)((({r42}){{1}}({r31}){{1}})|(({r42}){{2}}({r31}){{2}})|(({r42}){{3}}({r31}){{3}})|(({r42}){{4}}({r31}){{4}})|(({r42}){{5}}({r31}){{5}})|(({r42}){{6}}({r31}){{6}}))$", RegexOptions.Compiled);
 
     return input.Messages.Where(x => regex.IsMatch(x)).Count();
 }
