@@ -24,18 +24,17 @@ long SolveA(Input input)
             edgesToTiles.Add(x, input.Tiles.Where(t => t.Edges.Contains(x)).Select(t => t.Id).ToList());
         });
 
-
     var corners = new List<int>();
 
-    foreach(var tile in input.Tiles)
+    foreach (var tile in input.Tiles)
     {
         var pairs = new List<int>();
-        foreach(var egde in tile.Edges)
+        foreach (var egde in tile.Edges)
         {
-            if(edgesToTiles[egde].Count == 2)
+            if (edgesToTiles[egde].Count == 2)
             {
                 pairs.Add(egde);
-            }            
+            }
         }
         if (pairs.Count == 4)
         {
