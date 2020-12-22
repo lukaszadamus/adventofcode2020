@@ -16,7 +16,7 @@ namespace AOC.Day20
 
             Pixels = new int[10, 10];
 
-            for(var y=0; y<10; y++)
+            for (var y = 0; y < 10; y++)
             {
                 var line = lines.Dequeue();
                 for (var x = 0; x < 10; x++)
@@ -97,7 +97,7 @@ namespace AOC.Day20
             }
 
             return Convert.ToInt32(literal, 2);
-        }        
+        }
 
         private string Reverse(string input)
         {
